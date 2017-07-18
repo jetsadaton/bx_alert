@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css"
+              href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+        <script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </div>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Spring Boot</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="starter-template">
+        <h1>แจ้งเตือน</h1>
+       <div>
+           <form class="form-inline" method="POST" th:action="@{/}" th:object="${alert}">
+               <div class="form-group">
+                   <input type="text" class="form-control" th:field="*{price}" placeholder="Price" required="true" autofocus="true"/>
+               </div>
+               <select class="form-inline form-control" th:field="*{type}" required="true">
+                   <option value="less">Less than</option>
+                   <option value="more">More than</option>
+                   <option value="cross">Cross</option>
+               </select>
+               <div  class="form-group">
+                   <button type="submit" class="btn btn-default">ตกลง</button>
+               </div>
+           </form>
+       </div>
+        <div>
+            <div th:if="${not #lists.isEmpty(alerts)}">
+                <h2>Alert List</h2>
+                <table class="table table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                    </tr>
+                    <tr th:each="alert : ${alerts}">
+                        <td th:text="${alert.id}"></td>
+                        <td th:text="${alert.price}"></td>
+                        <td th:text="${alert.type}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
