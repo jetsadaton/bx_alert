@@ -29,8 +29,10 @@ public class ScheduledTask {
     @Scheduled(fixedRate = five)
     public void Scheduled() throws Exception {
         System.out.println("Do Scheduled \n" + bxService.GetListToString(alerts));
+        SendMessageton("Do Scheduled With Round:"+i_round);
         ScheduledPrice();
         if (i_round == 6) {
+            SendMessageton("Do Scheduled With Round:"+i_round + "\n ScheduledTime()");
             ScheduledTime();
             i_round = 0;
         }
@@ -83,5 +85,13 @@ public class ScheduledTask {
         lineRequest.setMessage(msg);
         messageService.addLineNoti(lineRequest , "ton");
         messageService.addLineNoti(lineRequest , "ko");
+    }
+
+    public void SendMessageton(String msg)
+    {
+        System.out.println("Send Line TON MSG:" + msg);
+        LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
+        lineRequest.setMessage(msg);
+        messageService.addLineNoti(lineRequest , "ton");
     }
 }
