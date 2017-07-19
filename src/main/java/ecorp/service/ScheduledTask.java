@@ -60,7 +60,7 @@ public class ScheduledTask {
         int i_now = d_now.getHour();
         int i_start = bxconfig.getRunStartTime();
         int i_end = bxconfig.getRunEndTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
         Date dd_now = sdf.parse("01/01/1990 "+i_now+":"+d_now.getMinute());
         Date dd_start = sdf.parse("01/01/1990 "+i_start+":"+"00");
         Date dd_end = sdf.parse("01/01/1990 "+i_end+":"+"30");
