@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -20,7 +22,7 @@ public class ScheduledTask {
     private MessageService messageService;
       public static   List<Alert> alerts = new ArrayList<>();
 
-    @Scheduled(fixedRate = 600000)
+    @Scheduled(fixedRate = 1800000) //30 min
     public void Scheduled() throws Exception {
         ScheduledTime();
     }
@@ -63,11 +65,13 @@ public class ScheduledTask {
 
     public void SendMessage(float price)
     {
-          String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท" + "ณ. เวลา: " +  LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-          System.out.println("Send Line At Price :" + price);
-          LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
-          lineRequest.setMessage(s_msg);
-          messageService.addLineNoti(lineRequest , "ton");
-          //messageService.addLineNoti(lineRequest , "ko");
+        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+        String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  "\nTIME: " + d_now.getHour()+":"+d_now.getMinute();
+        String s_msg = "BX ALERTT ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n DATE: " + s_date ;
+        System.out.println("Send Line At Price :" + price);
+        LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
+        lineRequest.setMessage(s_msg);
+        messageService.addLineNoti(lineRequest , "ton");
+        messageService.addLineNoti(lineRequest , "ko");
     }
 }
