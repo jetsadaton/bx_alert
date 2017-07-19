@@ -21,7 +21,7 @@ public class ScheduledTask {
     @Autowired
     private MessageService messageService;
     public static   List<Alert> alerts = new ArrayList<>();
-    int i_round = 1;
+    int i_round = 6;
     static final int five = 300000;
     static final int ten = 600000;
     static final int half = 1800000;
@@ -36,7 +36,7 @@ public class ScheduledTask {
         }
         i_round++;
     }
-    private  void ScheduledTime() throws Exception {
+    public void ScheduledTime() throws Exception {
         String least_price = bxService.GetRecent();
         float price = Float.parseFloat(least_price);
         LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
@@ -82,6 +82,6 @@ public class ScheduledTask {
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
         lineRequest.setMessage(msg);
         messageService.addLineNoti(lineRequest , "ton");
-        //messageService.addLineNoti(lineRequest , "ko");
+        messageService.addLineNoti(lineRequest , "ko");
     }
 }
