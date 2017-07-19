@@ -21,7 +21,7 @@ public class ScheduledTask {
     @Autowired
     private MessageService messageService;
     public static   List<Alert> alerts = new ArrayList<>();
-    int i_round = 6;
+    int i_min = 30;
     static final int five = 300000;
     static final int ten = 600000;
     static final int half = 1800000;
@@ -29,14 +29,15 @@ public class ScheduledTask {
     @Scheduled(fixedRate = five)
     public void Scheduled() throws Exception {
         System.out.println("Do Scheduled \n" + bxService.GetListToString(alerts));
-        SendMessageton("Do Scheduled With Round:"+i_round);
         ScheduledPrice();
-        if (i_round == 6) {
-            SendMessageton("Do Scheduled With Round:"+i_round + "\n ScheduledTime()");
+        if (i_min == 30) {
             ScheduledTime();
-            i_round = 0;
+            i_min = 0;
         }
-        i_round++;
+        else
+        {
+            i_min = i_min + 5;
+        }
     }
     public void ScheduledTime() throws Exception {
         String least_price = bxService.GetRecent();
