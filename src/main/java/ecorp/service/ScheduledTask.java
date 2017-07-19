@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -40,14 +41,17 @@ public class ScheduledTask {
     @Scheduled(fixedRate = five)
     public void Scheduled() throws Exception {
         logger.info("Do Scheduled Method Scheduled \n" + bxService.GetListToString(alerts) + "\n i_min:" + i_min);
+        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+        int i_now = d_now.getHour();
         ScheduledPrice();
-        if (i_min == 30) {
-            ScheduledTime();
-            i_min = 0;
-        }
-        else
+        if (!(bxconfig.geHerokuMode().equals("n") && i_now >= 0  && i_now <= 8))
         {
-            i_min = i_min + 5;
+            if (i_min == 30) {
+                ScheduledTime();
+                i_min = 0;
+            } else {
+                i_min = i_min + 5;
+            }
         }
     }
     @Scheduled(fixedRate = twenty)
@@ -56,7 +60,11 @@ public class ScheduledTask {
         int i_now = d_now.getHour();
         int i_start = bxconfig.getRunStartTime();
         int i_end = bxconfig.getRunEndTime();
-        if (i_now >= i_start && i_now <= i_end)
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy hh:mm");
+        Date dd_now = sdf.parse("01/01/1990 "+i_now+":"+d_now.getMinute());
+        Date dd_start = sdf.parse("01/01/1990 "+i_start+":"+"00");
+        Date dd_end = sdf.parse("01/01/1990 "+i_end+":"+"30");
+        if (dd_now.after(dd_start) && dd_now.before(dd_end))
         {
             bxdao.GetBodyHtml(bxconfig.getHerokuUrl());
             logger.info("Do Scheduled Method HerokuNonSleep ::::::: " + bxconfig.getHerokuUrl());
