@@ -28,7 +28,7 @@ public class ScheduledTask {
     static final int hour = 3600000;
     @Scheduled(fixedRate = five)
     public void Scheduled() throws Exception {
-        System.out.println("Do Scheduled \n" + bxService.GetListToString(alerts));
+        System.out.println("Do Scheduled \n" + bxService.GetListToString(alerts) + "\n i_min:" + i_min);
         ScheduledPrice();
         if (i_min == 30) {
             ScheduledTime();
