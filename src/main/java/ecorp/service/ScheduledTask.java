@@ -20,41 +20,54 @@ public class ScheduledTask {
     private BxService bxService;
     @Autowired
     private MessageService messageService;
-      public static   List<Alert> alerts = new ArrayList<>();
-
-    @Scheduled(fixedRate = 1800000) //30 min
+    public static   List<Alert> alerts = new ArrayList<>();
+    int i_round = 1;
+    static final int five = 300000;
+    static final int ten = 600000;
+    static final int half = 1800000;
+    static final int hour = 3600000;
+    @Scheduled(fixedRate = five)
     public void Scheduled() throws Exception {
-        ScheduledTime();
+        System.out.println("Do Scheduled \n" + bxService.GetListToString(alerts));
+        ScheduledPrice();
+        if (i_round == 6) {
+            ScheduledTime();
+            i_round = 0;
+        }
+        i_round++;
     }
-
     private  void ScheduledTime() throws Exception {
         String least_price = bxService.GetRecent();
         float price = Float.parseFloat(least_price);
-        System.out.println("DO Scheduled Price :" + price + " , Time :" + LocalDateTime.now(ZoneId.of("Asia/Bangkok")));
-        SendMessage(price);
+        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+        String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  "\nTIME: " + d_now.getHour()+":"+d_now.getMinute();
+        String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n DATE: " + s_date + "[  ScheduledTime]" ;
+        SendMessage(s_msg);
     }
     private  void  ScheduledPrice() throws Exception {
         String least_price = bxService.GetRecent();
         float price = Float.parseFloat(least_price);
-        System.out.println("DO Scheduled Price :" + price + " , Time :" + LocalDateTime.now(ZoneId.of("Asia/Bangkok")));
         for (int i=0 ; i<alerts.size() ; i++)
         {
             Alert al = alerts.get(i);
             if(al.one_time_flag)
             {
+                LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+                String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  "\nTIME: " + d_now.getHour()+":"+d_now.getMinute();
+                String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n DATE: " + s_date + "[  Scheduled interrupt]";
                 switch (al.getType())
                 {
                     case "less":
                         if (al.getPrice() >= price)
                         {
-                            SendMessage(price);
+                            SendMessage(s_msg);
                             al.setOne_time_flag(false);
                         }
                         break;
                     case "more":
                         if (al.getPrice() <= price)
                         {
-                            SendMessage(price);
+                            SendMessage(s_msg);
                             al.setOne_time_flag(false);
                         }
                         break;
@@ -63,15 +76,12 @@ public class ScheduledTask {
         }
     }
 
-    public void SendMessage(float price)
+    public void SendMessage(String msg)
     {
-        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-        String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  "\nTIME: " + d_now.getHour()+":"+d_now.getMinute();
-        String s_msg = "BX ALERTT ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n DATE: " + s_date ;
-        System.out.println("Send Line At Price :" + price);
+        System.out.println("Send Line MSG:" + msg);
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
-        lineRequest.setMessage(s_msg);
+        lineRequest.setMessage(msg);
         messageService.addLineNoti(lineRequest , "ton");
-        messageService.addLineNoti(lineRequest , "ko");
+        //messageService.addLineNoti(lineRequest , "ko");
     }
 }
