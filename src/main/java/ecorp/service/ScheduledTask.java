@@ -44,7 +44,7 @@ public class ScheduledTask {
         float price = Float.parseFloat(least_price);
         LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
         String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  "\nTIME: " + d_now.getHour()+":"+d_now.getMinute();
-        String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n DATE: " + s_date + "[  ScheduledTime]" ;
+        String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n DATE: " + s_date ;
         SendMessage(s_msg);
     }
     private  void  ScheduledPrice() throws Exception {
@@ -57,7 +57,7 @@ public class ScheduledTask {
             {
                 LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
                 String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  "\nTIME: " + d_now.getHour()+":"+d_now.getMinute();
-                String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n DATE: " + s_date + "[  Scheduled interrupt]";
+                String s_msg = "แจ้งเตือน ราคาล่าสุด" +price+ " บาท " + "\n DATE: " + s_date;
                 switch (al.getType())
                 {
                     case "less":
@@ -86,13 +86,5 @@ public class ScheduledTask {
         lineRequest.setMessage(msg);
         messageService.addLineNoti(lineRequest , "ton");
         messageService.addLineNoti(lineRequest , "ko");
-    }
-
-    public void SendMessageton(String msg)
-    {
-        System.out.println("Send Line TON MSG:" + msg);
-        LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
-        lineRequest.setMessage(msg);
-        messageService.addLineNoti(lineRequest , "ton");
     }
 }
