@@ -40,13 +40,13 @@ public class ScheduledTask {
 
     @Scheduled(fixedRate = five)
     public void Scheduled() throws Exception {
-        logger.info("Do Scheduled Method Scheduled \n" + bxService.GetListToString(alerts) + "\n i_min:" + i_min);
+        logger.info("Do Scheduled Method Scheduled ::::::::::: \n" + bxService.GetListToString(alerts) + "::::: i_min:" + i_min);
         LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
         int i_now = d_now.getHour();
         ScheduledPrice();
-        if (!(bxconfig.geHerokuMode().equals("n") && i_now >= 0  && i_now <= 8))
+        if (!(bxconfig.geHerokuMode().equals("n") && i_now >= 0  && i_now <= 7))
         {
-            if (i_min == 30) {
+            if (i_min >= 30) {
                 ScheduledTime();
                 i_min = 0;
             } else {
@@ -75,14 +75,21 @@ public class ScheduledTask {
         }
     }
 
-
+    private String GetBIP91Blocks()
+    {   String s_bNeeded;
+        String s_body = bxdao.GetBodyHtml("https://coin.dance/blocks");
+        int index  = s_body.indexOf("Current Count:</span>");
+        String current_blocks = s_body.substring(index+21 , index+21+16 );
+        return current_blocks;
+    }
     public void ScheduledTime() throws Exception {
         logger.info("Do Method ScheduledTime");
         String least_price = bxService.GetRecent();
         float price = Float.parseFloat(least_price);
         LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
         String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " " + d_now.getHour()+":"+d_now.getMinute();
-        String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n" + s_date ;
+        String s_current_block =  GetBIP91Blocks();
+        String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n" + s_date + "\n BIP 91: "+s_current_block ;
         SendMessage(s_msg);
     }
     private  void  ScheduledPrice() throws Exception {
