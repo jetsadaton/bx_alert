@@ -131,6 +131,6 @@ public class ScheduledTask {
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
         lineRequest.setMessage(msg + "\n Send From:" + bxconfig.getHerukuRes());
         messageService.addLineNoti(lineRequest , "ton");
-        messageService.addLineNoti(lineRequest , "ko");
+//        messageService.addLineNoti(lineRequest , "ko");
     }
 }

@@ -20,7 +20,7 @@ public class AlertTemplateController  {
     @Autowired
     private MessageService messageService;
 
-    @RequestMapping("/test")
+    @RequestMapping("/index")
     public String test() {
         return "index";
     }
