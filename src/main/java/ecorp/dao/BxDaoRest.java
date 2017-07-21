@@ -18,8 +18,11 @@ public class BxDaoRest {
     @Autowired
     private BxApiConfiguration bxconfig;
     public String GetRecent() throws Exception {
-
         return JsonPath.read(GetBodyHtml(bxconfig.getBxApiUrl()), "$.trades[9].rate");
+    }
+
+    public String GetDataMsg() throws Exception {
+        return GetBodyHtml(bxconfig.getBxApiUrl());
     }
 
     public  String GetBodyHtml(String url)

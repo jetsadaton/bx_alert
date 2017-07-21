@@ -84,12 +84,17 @@ public class ScheduledTask {
     }
     public void ScheduledTime() throws Exception {
         logger.info("Do Method ScheduledTime");
-        String least_price = bxService.GetRecent();
+        String data[] = bxService.GetDataMsg();
+        String least_price = data[0];
+        float least_buy = Float.parseFloat(data[1]);
+        float least_sell = Float.parseFloat(data[2]);
         float price = Float.parseFloat(least_price);
         LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-        String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " " + d_now.getHour()+":"+d_now.getMinute();
-        String s_current_block =  GetBIP91Blocks();
-        String s_msg = "ราคาชื้อขายล่าสุด " +price+ " บาท " + "\n" + s_date + "\n BIP 91: "+s_current_block ;
+        String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " เวลา " + d_now.getHour()+":"+d_now.getMinute();
+        String s_msg = "ราคาล่าสุด "  +price+ " บาท\n" ;
+        s_msg = s_msg + "ราคารับซื้อล่าสุด : " + least_buy+ " บาท\n" ;
+        s_msg = s_msg + "ราคาตั้งขายล่าสุด : " + least_sell+ " บาท\n" ;
+        s_msg = s_msg + s_date;
         SendMessage(s_msg);
     }
     private  void  ScheduledPrice() throws Exception {
@@ -102,7 +107,7 @@ public class ScheduledTask {
             if(al.one_time_flag)
             {
                 LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-                String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " " + d_now.getHour()+":"+d_now.getMinute();
+                String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " เวลา " + d_now.getHour()+":"+d_now.getMinute();
                 String s_msg = "แจ้งเตือน ราคาล่าสุด" +price+ " บาท " + "\n" + s_date;
                 switch (al.getType())
                 {
@@ -129,7 +134,7 @@ public class ScheduledTask {
     {
         System.out.println("Send Line MSG:" + msg);
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
-        lineRequest.setMessage(msg + "\n Send From:" + bxconfig.getHerukuRes());
+        lineRequest.setMessage(msg);
         messageService.addLineNoti(lineRequest , "ton");
         messageService.addLineNoti(lineRequest , "ko");
     }
