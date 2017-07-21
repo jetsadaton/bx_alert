@@ -44,7 +44,7 @@ public class ScheduledTask {
         LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
         int i_now = d_now.getHour();
         ScheduledPrice();
-        if (!(bxconfig.geHerokuMode().equals("n") && i_now >= 0  && i_now <= 7))
+        if (i_now >= bxconfig.getRunStartTimeM() && i_now <= bxconfig.getRunEndTimeM())
         {
             if (i_min >= 30) {
                 ScheduledTime();
@@ -53,34 +53,6 @@ public class ScheduledTask {
                 i_min = i_min + 5;
             }
         }
-    }
-    @Scheduled(fixedRate = twenty)
-    public void HerokuNonSleep() throws Exception {
-        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-        int i_now = d_now.getHour();
-        int i_start = bxconfig.getRunStartTime();
-        int i_end = bxconfig.getRunEndTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
-        Date dd_now = sdf.parse("01/01/1990 "+i_now+":"+d_now.getMinute());
-        Date dd_start = sdf.parse("01/01/1990 "+i_start+":"+"00");
-        Date dd_end = sdf.parse("01/01/1990 "+i_end+":"+"30");
-        if (dd_now.after(dd_start) && dd_now.before(dd_end))
-        {
-            bxdao.GetBodyHtml(bxconfig.getHerokuUrl());
-            logger.info("Do Scheduled Method HerokuNonSleep ::::::: " + bxconfig.getHerokuUrl());
-        }else
-        {
-            bxdao.GetBodyHtml(bxconfig.getHerokuUrlRevert());
-            logger.info("Do Scheduled Method HerokuNonSleep ::::::: " + bxconfig.getHerokuUrlRevert());
-        }
-    }
-
-    private String GetBIP91Blocks()
-    {   String s_bNeeded;
-        String s_body = bxdao.GetBodyHtml("https://coin.dance/blocks");
-        int index  = s_body.indexOf("Current Count:</span>");
-        String current_blocks = s_body.substring(index+21 , index+21+16 );
-        return current_blocks;
     }
     public void ScheduledTime() throws Exception {
         logger.info("Do Method ScheduledTime");
@@ -136,6 +108,6 @@ public class ScheduledTask {
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
         lineRequest.setMessage(msg);
         messageService.addLineNoti(lineRequest , "ton");
-        messageService.addLineNoti(lineRequest , "ko");
+//        messageService.addLineNoti(lineRequest , "ko");
     }
 }
