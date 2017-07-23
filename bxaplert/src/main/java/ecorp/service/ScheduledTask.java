@@ -108,6 +108,6 @@ public class ScheduledTask {
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
         lineRequest.setMessage(msg);
 //        messageService.addLineNoti(lineRequest , "ton");
-//        messageService.addLineNoti(lineRequest , "ko");
+//        essageService.addLineNoti(lineRequest , "ko");
     }
 }
