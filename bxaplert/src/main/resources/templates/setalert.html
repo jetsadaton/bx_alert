@@ -33,9 +33,8 @@
                    <input type="text" class="form-control" th:field="*{price}" placeholder="Price" required="true" autofocus="true"/>
                </div>
                <select class="form-inline form-control" th:field="*{type}" required="true">
-                   <option value="less">Less than</option>
-                   <option value="more">More than</option>
-                   <option value="cross">Cross</option>
+                   <option value="less">น้อยกว่า</option>
+                   <option value="more">มากกว่า</option>
                </select>
                <div  class="form-group">
                    <button type="submit" class="btn btn-default">ตกลง</button>
@@ -50,11 +49,19 @@
                         <th>ID</th>
                         <th>Price</th>
                         <th>Type</th>
+                        <th>Flag</th>
                     </tr>
                     <tr th:each="alert : ${alerts}">
                         <td th:text="${alert.id}"></td>
                         <td th:text="${alert.price}"></td>
-                        <td th:text="${alert.type}"></td>
+                        <div th:switch="${alert.type}">
+                            <td th:case="less">น้อยกว่าราคาที่ตั้งไว้</td>
+                            <td th:case="more">มากกว่าราคาที่ตั้งไว้</td>
+                        </div>
+                        <div th:switch="${alert.one_time_flag}">
+                            <td th:case="true">รอการแจ้งเตือน</td>
+                            <td th:case="false">แจ้งเตือนแล้ว</td>
+                        </div>
                     </tr>
                 </table>
             </div>

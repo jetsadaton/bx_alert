@@ -27,8 +27,6 @@ public class BxService {
 
     public List<Alert> listAll() {
         List<Alert> alerts = ScheduledTask.alerts;;
-//        alerts.add(new Alert("1" , 87000 , "less than"));
-//        countRepository.findAll().forEach(alerts::add);
         return alerts;
     }
 

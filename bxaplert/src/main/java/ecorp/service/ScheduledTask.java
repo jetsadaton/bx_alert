@@ -31,7 +31,7 @@ public class ScheduledTask {
     @Autowired
     private BxDaoRest bxdao;
     public static   List<Alert> alerts = new ArrayList<>();
-    int i_min = 30;
+    int i_min = 25;
     static final int five = 300000;
     static final int twenty = 1200000;
     static final int ten = 600000;
@@ -46,7 +46,7 @@ public class ScheduledTask {
         ScheduledPrice();
         if (i_now >= bxconfig.getRunStartTimeM() && i_now <= bxconfig.getRunEndTimeM())
         {
-            if (i_min >= 30) {
+            if (i_min >= 25) {
                 ScheduledTime();
                 i_min = 0;
             } else {
@@ -63,7 +63,7 @@ public class ScheduledTask {
         float price = Float.parseFloat(least_price);
         LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
         String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " เวลา " + d_now.getHour()+":"+d_now.getMinute();
-        String s_msg = "ราคาล่าสุด "  +price+ " บาท\n" ;
+        String s_msg = "ราคาล่าสุด : "  +price+ " บาท\n" ;
         s_msg = s_msg + "ราคารับซื้อล่าสุด : " + least_buy+ " บาท\n" ;
         s_msg = s_msg + "ราคาตั้งขายล่าสุด : " + least_sell+ " บาท\n" ;
         s_msg = s_msg + s_date;
@@ -80,7 +80,7 @@ public class ScheduledTask {
             {
                 LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
                 String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " เวลา " + d_now.getHour()+":"+d_now.getMinute();
-                String s_msg = "แจ้งเตือน ราคาล่าสุด" +price+ " บาท " + "\n" + s_date;
+                String s_msg = "แจ้งเตือน ราคาล่าสุด : " +price+ " บาท " + "\n" + s_date;
                 switch (al.getType())
                 {
                     case "less":
@@ -107,7 +107,7 @@ public class ScheduledTask {
         System.out.println("Send Line MSG:" + msg);
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
         lineRequest.setMessage(msg);
-        messageService.addLineNoti(lineRequest , "ton");
+//        messageService.addLineNoti(lineRequest , "ton");
 //        messageService.addLineNoti(lineRequest , "ko");
     }
 }
