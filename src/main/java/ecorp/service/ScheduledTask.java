@@ -40,19 +40,19 @@ public class ScheduledTask {
 
     @Scheduled(fixedRate = five)
     public void Scheduled() throws Exception {
-        logger.info("Do Scheduled Method Scheduled ::::::::::: \n" + bxService.GetListToString(alerts) + "::::: i_min:" + i_min);
-        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-        int i_now = d_now.getHour();
-        ScheduledPrice();
-        if (i_now >= bxconfig.getRunStartTimeM() && i_now <= bxconfig.getRunEndTimeM())
-        {
-            if (i_min >= 30) {
-                ScheduledTime();
-                i_min = 0;
-            } else {
-                i_min = i_min + 5;
-            }
-        }
+//        logger.info("Do Scheduled Method Scheduled ::::::::::: \n" + bxService.GetListToString(alerts) + "::::: i_min:" + i_min);
+//        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+//        int i_now = d_now.getHour();
+//        ScheduledPrice();
+//        if (i_now >= bxconfig.getRunStartTimeM() && i_now <= bxconfig.getRunEndTimeM())
+//        {
+//            if (i_min >= 30) {
+//                ScheduledTime();
+//                i_min = 0;
+//            } else {
+//                i_min = i_min + 5;
+//            }
+//        }
     }
     public void ScheduledTime() throws Exception {
         logger.info("Do Method ScheduledTime");

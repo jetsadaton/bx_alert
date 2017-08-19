@@ -50,3 +50,11 @@ builds/**/images/*
 # security / ssl
 *.pem
 *.xxjson
+
+target
+out
+.settings
+.classpath
+.project
+.idea
+*.iml
