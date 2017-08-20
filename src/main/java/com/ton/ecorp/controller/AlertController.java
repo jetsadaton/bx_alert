@@ -1,9 +1,9 @@
-package ecorp.controller;
+package com.ton.ecorp.controller;
 
-import ecorp.service.ScheduledTask;
-import ecorp.object.Alert;
-import ecorp.service.BxService;
-import ecorp.service.MessageService;
+import com.ton.ecorp.service.ScheduledTask;
+import com.ton.ecorp.object.Alert;
+import com.ton.ecorp.service.BxService;
+import com.ton.ecorp.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.apache.log4j.Logger;

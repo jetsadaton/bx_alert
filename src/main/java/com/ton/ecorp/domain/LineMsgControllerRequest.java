@@ -1,4 +1,4 @@
-package ecorp.domain;
+package com.ton.ecorp.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;

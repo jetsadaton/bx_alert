@@ -1,7 +1,7 @@
-package ecorp.dao;
+package com.ton.ecorp.dao;
 
 import com.jayway.jsonpath.JsonPath;
-import ecorp.config.BxApiConfiguration;
+import com.ton.ecorp.config.BxApiConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;

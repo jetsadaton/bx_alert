@@ -1,7 +1,7 @@
-package ecorp.controller;
+package com.ton.ecorp.controller;
 
-import ecorp.domain.LineMsgControllerRequest;
-import ecorp.service.MessageService;
+import com.ton.ecorp.domain.LineMsgControllerRequest;
+import com.ton.ecorp.service.MessageService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

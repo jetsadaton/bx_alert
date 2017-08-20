@@ -1,4 +1,4 @@
-package ecorp.object;
+package com.ton.ecorp.object;
 
 public class Alert {
     public float id;

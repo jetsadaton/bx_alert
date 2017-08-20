@@ -1,7 +1,7 @@
-package ecorp.service;
+package com.ton.ecorp.service;
 
-import ecorp.dao.LineDaoRestImpl;
-import ecorp.domain.LineMsgControllerRequest;
+import com.ton.ecorp.dao.LineDaoRestImpl;
+import com.ton.ecorp.domain.LineMsgControllerRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

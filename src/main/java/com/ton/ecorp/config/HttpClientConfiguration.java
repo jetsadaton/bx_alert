@@ -1,4 +1,4 @@
-package ecorp.config;
+package com.ton.ecorp.config;
 
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;

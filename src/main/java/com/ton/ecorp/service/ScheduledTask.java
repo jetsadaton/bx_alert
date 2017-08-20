@@ -1,9 +1,9 @@
-package ecorp.service;
+package com.ton.ecorp.service;
 
-import ecorp.config.BxApiConfiguration;
-import ecorp.dao.BxDaoRest;
-import ecorp.domain.LineMsgControllerRequest;
-import ecorp.object.Alert;
+import com.ton.ecorp.config.BxApiConfiguration;
+import com.ton.ecorp.dao.BxDaoRest;
+import com.ton.ecorp.domain.LineMsgControllerRequest;
+import com.ton.ecorp.object.Alert;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

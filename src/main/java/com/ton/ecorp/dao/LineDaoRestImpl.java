@@ -1,8 +1,8 @@
-package ecorp.dao;
+package com.ton.ecorp.dao;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ecorp.config.LineAPIConfiguration;
-import ecorp.domain.LineMsgControllerRequest;
-import ecorp.service.MessageService;
+import com.ton.ecorp.config.LineAPIConfiguration;
+import com.ton.ecorp.domain.LineMsgControllerRequest;
+import com.ton.ecorp.service.MessageService;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

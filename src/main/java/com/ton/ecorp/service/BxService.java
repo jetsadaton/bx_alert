@@ -1,8 +1,8 @@
-package ecorp.service;
+package com.ton.ecorp.service;
 
 import com.jayway.jsonpath.JsonPath;
-import ecorp.dao.BxDaoRest;
-import ecorp.object.Alert;
+import com.ton.ecorp.dao.BxDaoRest;
+import com.ton.ecorp.object.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
