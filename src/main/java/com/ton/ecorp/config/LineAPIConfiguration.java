@@ -15,6 +15,9 @@ public class LineAPIConfiguration {
 	@Value("${line.api.tokenko}")
 	private String lineAPITokenKo;
 
+	@Value("${line.api.tokenben}")
+	private String lineAPITokenBen;
+
 	public String getLineAPIPath() {
 		return lineAPIPath;
 	}
@@ -30,4 +33,10 @@ public class LineAPIConfiguration {
 	public String getLineAPITokenTon() {
 		return  lineAPITokenTon;
 	}
+
+	public String getLineAPITokenBen() {
+		return lineAPITokenBen;
+	}
+
+
 }

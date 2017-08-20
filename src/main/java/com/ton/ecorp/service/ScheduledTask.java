@@ -4,6 +4,7 @@ import com.ton.ecorp.config.BxApiConfiguration;
 import com.ton.ecorp.dao.BxDaoRest;
 import com.ton.ecorp.domain.LineMsgControllerRequest;
 import com.ton.ecorp.object.Alert;
+import com.ton.ecorp.object.BxCion;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -38,68 +39,68 @@ public class ScheduledTask {
     static final int half = 1800000;
     static final int hour = 3600000;
 
-    @Scheduled(fixedRate = five)
+    @Scheduled(fixedRate = half)
     public void Scheduled() throws Exception {
-//        logger.info("Do Scheduled Method Scheduled ::::::::::: \n" + bxService.GetListToString(alerts) + "::::: i_min:" + i_min);
-//        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-//        int i_now = d_now.getHour();
-//        ScheduledPrice();
-//        if (i_now >= bxconfig.getRunStartTimeM() && i_now <= bxconfig.getRunEndTimeM())
-//        {
+        logger.info("Do Scheduled Method Scheduled");
+        LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+        int i_now = d_now.getHour();
+        //ScheduledPrice();
+        if (i_now >= bxconfig.getRunStartTimeM() && i_now <= bxconfig.getRunEndTimeM())
+        {
 //            if (i_min >= 30) {
-//                ScheduledTime();
+                //ScheduledTime();
 //                i_min = 0;
 //            } else {
 //                i_min = i_min + 5;
 //            }
-//        }
+        }
     }
+
     public void ScheduledTime() throws Exception {
         logger.info("Do Method ScheduledTime");
-        String data[] = bxService.GetDataMsg();
-        String least_price = data[0];
-        float least_buy = Float.parseFloat(data[1]);
-        float least_sell = Float.parseFloat(data[2]);
-        float price = Float.parseFloat(least_price);
+        BxCion[] bxcoins = bxService.GetDataMsg();
+        String s_msg = "";
+        int[] pattern = {1,21,26};
+        for (int i=0;i<pattern.length;i++)
+        {
+            s_msg += bxcoins[pattern[i]].toString();
+        }
         LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
         String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " เวลา " + d_now.getHour()+":"+d_now.getMinute();
-        String s_msg = "ราคาล่าสุด "  +price+ " บาท\n" ;
-        s_msg = s_msg + "ราคารับซื้อล่าสุด : " + least_buy+ " บาท\n" ;
-        s_msg = s_msg + "ราคาตั้งขายล่าสุด : " + least_sell+ " บาท\n" ;
-        s_msg = s_msg + s_date;
+        s_msg += s_date;
         SendMessage(s_msg);
     }
     private  void  ScheduledPrice() throws Exception {
-        logger.info("Do Method ScheduledPrice");
-        String least_price = bxService.GetRecent();
-        float price = Float.parseFloat(least_price);
-        for (int i=0 ; i<alerts.size() ; i++)
-        {
-            Alert al = alerts.get(i);
-            if(al.one_time_flag)
-            {
-                LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-                String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " เวลา " + d_now.getHour()+":"+d_now.getMinute();
-                String s_msg = "แจ้งเตือน ราคาล่าสุด" +price+ " บาท " + "\n" + s_date;
-                switch (al.getType())
-                {
-                    case "less":
-                        if (al.getPrice() >= price)
-                        {
-                            SendMessage(s_msg);
-                            al.setOne_time_flag(false);
-                        }
-                        break;
-                    case "more":
-                        if (al.getPrice() <= price)
-                        {
-                            SendMessage(s_msg);
-                            al.setOne_time_flag(false);
-                        }
-                        break;
-                }
-            }
-        }
+//        logger.info("Do Method ScheduledPrice");
+//        String least_price = bxService.GetRecent();
+//        float price = Float.parseFloat(least_price);
+//        for (int i=0 ; i<alerts.size() ; i++)
+//        {
+//            Alert al = alerts.get(i);
+//            if(al.one_time_flag)
+//            {
+//                LocalDateTime d_now = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+//                String s_date = d_now.getDayOfMonth()+"/"+d_now.getMonthValue()+"/"+d_now.getYear() +  " เวลา " + d_now.getHour()+":"+d_now.getMinute();
+//                String s_msg = "แจ้งเตือน ราคาล่าสุด" +price+ " บาท " + "\n" + s_date;
+//                switch (al.getType())
+//                {
+//                    case "less":
+//                        if (al.getPrice() >= price)
+//                        {
+//                            SendMessage(s_msg);
+//                            al.setOne_time_flag(false);
+//                        }
+//                        break;
+//                    case "more":
+//                        if (al.getPrice() <= price)
+//                        {
+//                            SendMessage(s_msg);
+//                            al.setOne_time_flag(false);
+//                        }
+//                        break;
+//                }
+//            }
+//        }
     }
 
     public void SendMessage(String msg)
@@ -108,6 +109,7 @@ public class ScheduledTask {
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
         lineRequest.setMessage(msg);
         messageService.addLineNoti(lineRequest , "ton");
+//        messageService.addLineNoti(lineRequest , "ben");
 //        messageService.addLineNoti(lineRequest , "ko");
     }
 }

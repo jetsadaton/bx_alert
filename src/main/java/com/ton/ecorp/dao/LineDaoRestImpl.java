@@ -27,11 +27,8 @@ public class LineDaoRestImpl {
 
 	private static Logger logger = Logger.getLogger(MessageService.class);
 
-	public  String SendMsg(LineMsgControllerRequest request ,String name)
+	public  String SendMsg(LineMsgControllerRequest request ,String token)
 	{
-		String token = "";
-		if (name == "ton") token =  lineConfig.getLineAPITokenTon();
-		else if (name == "ko") token =  lineConfig.getLineAPITokenKo();
 		return sendExchange(request , token);
 	}
 	public String sendExchange(LineMsgControllerRequest request , String token) throws RuntimeException {

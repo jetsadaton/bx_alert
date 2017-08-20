@@ -8,11 +8,22 @@ public class BxApiConfiguration {
     @Value("${bx.api.url}")
     private String BxApiUrl;
 
+    @Value("${bx.api.paring}")
+    private String BxApiUrlParing;
+
     @Value("${heroku.run.start}")
     private int RunStartTimeM;
 
     @Value("${heroku.run.end}")
     private int RunEndTimeM;
+
+    public String getBxApiUrlParing() {
+        return BxApiUrlParing;
+    }
+
+    public void setBxApiUrlParing(String bxApiUrlParing) {
+        BxApiUrlParing = bxApiUrlParing;
+    }
 
     public String getBxApiUrl() {
         return BxApiUrl;

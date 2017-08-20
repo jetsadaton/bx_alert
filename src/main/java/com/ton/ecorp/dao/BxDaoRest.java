@@ -3,32 +3,25 @@ package com.ton.ecorp.dao;
 import com.jayway.jsonpath.JsonPath;
 import com.ton.ecorp.config.BxApiConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 @Repository
 public class BxDaoRest {
 
     private  final String USER_AGENT = "Mozilla/5.0";
-    @Autowired
-    private BxApiConfiguration bxconfig;
-    public String GetRecent() throws Exception {
-        return JsonPath.read(GetBodyHtml(bxconfig.getBxApiUrl()), "$.trades[9].rate");
-    }
-
-    public String GetDataMsg() throws Exception {
-        return GetBodyHtml(bxconfig.getBxApiUrl());
-    }
 
     public  String GetBodyHtml(String url)
     {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", USER_AGENT);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> result = restTemplate.getForEntity(url , String.class);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
         return result.getBody();
     }
 }
