@@ -27,10 +27,10 @@
 <div class="container">
     <div class="starter-template">
         <div th:if="${not #lists.isEmpty(liscion)}">
-            <select class="form-inline form-control" >
+            <select class="form-inline form-control" id ='selectcoin' >
                 <div th:each="lis : ${liscion}">
-                    <option  th:value="${lis.coin_sec}">
-                        <p th:text="${lis.coin_sec}"></p>
+                    <option  th:value="${lis.paring_id}">
+                        <p th:text="${lis.coin_pri}+'/'+${lis.coin_sec}"></p>
                     </option>
                 </div>
             </select>
@@ -54,14 +54,12 @@
         <div>
             <div th:if="${not #lists.isEmpty(alerts)}">
                 <h2>Alert List</h2>
-                <table class="table table-striped">
+                <table class="table table-striped group"  th:each="lis : ${liscion}" th:id="${lis.paring_id}">
                     <tr>
-                        <th>ID</th>
                         <th>Price</th>
                         <th>Type</th>
                     </tr>
-                    <tr th:each="alert : ${alerts}">
-                        <td th:text="${alert.id}"></td>
+                    <tr th:if="${lis.paring_id} == ${alert.paring_id}"  th:each="alert : ${alerts}">
                         <td th:text="${alert.price}"></td>
                         <td th:text="${alert.type}"></td>
                     </tr>
@@ -70,6 +68,15 @@
         </div>
     </div>
 </div>
-
+<script>
+    $(document).ready(function () {
+        $('.group').hide();
+        $('#1').show();
+        $('#selectcoin').change(function () {
+            $('.group').hide();
+            $('#'+$(this).val()).show();
+        })
+    });
+</script>
 </body>
 </html>

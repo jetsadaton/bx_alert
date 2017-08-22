@@ -54,6 +54,12 @@ public class BxService {
     }
     public List<Alert> listAll() {
         List<Alert> alerts = ScheduledTask.alerts;;
+        //Demo Data
+        alerts.add(new Alert(1,100,"less" , 1 , true));
+        alerts.add(new Alert(2,120,"less" , 21 , true));
+        alerts.add(new Alert(3,130,"less" , 26 , true));
+        alerts.add(new Alert(4,140,"less" , 21 , true));
+        alerts.add(new Alert(5,150,"less" , 1 , true));
         return alerts;
     }
 
