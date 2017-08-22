@@ -48,7 +48,7 @@ public class ScheduledTask {
         if (i_now >= bxconfig.getRunStartTimeM() && i_now <= bxconfig.getRunEndTimeM())
         {
 //            if (i_min >= 30) {
-                //ScheduledTime();
+                ScheduledTime();
 //                i_min = 0;
 //            } else {
 //                i_min = i_min + 5;
@@ -108,8 +108,9 @@ public class ScheduledTask {
         System.out.println("Send Line MSG:" + msg);
         LineMsgControllerRequest lineRequest = new LineMsgControllerRequest();
         lineRequest.setMessage(msg);
-        messageService.addLineNoti(lineRequest , "ton");
-//        messageService.addLineNoti(lineRequest , "ben");
+        messageService.addLineNoti(lineRequest , "group");
+//        messageService.addLineNoti(lineRequest , "ton");
+        messageService.addLineNoti(lineRequest , "ben");
 //        messageService.addLineNoti(lineRequest , "ko");
     }
 }

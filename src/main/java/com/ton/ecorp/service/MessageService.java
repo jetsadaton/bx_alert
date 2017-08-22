@@ -23,6 +23,7 @@ public class MessageService {
         if (name == "ton") token =  lineConfig.getLineAPITokenTon();
         else if (name == "ko") token =  lineConfig.getLineAPITokenKo();
         else if (name == "ben") token =  lineConfig.getLineAPITokenBen();
+        else if (name == "group") token =  lineConfig.getLineAPITokenGroup();
         if (token.length() > 0){
             response = lineDaoRest.SendMsg(lineRequest , token );
         }

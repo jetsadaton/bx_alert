@@ -18,6 +18,14 @@ public class LineAPIConfiguration {
 	@Value("${line.api.tokenben}")
 	private String lineAPITokenBen;
 
+	@Value("${line.api.tokengroup}")
+	private String lineAPITokenGroup;
+
+
+	public String getLineAPITokenGroup() {
+		return lineAPITokenGroup;
+	}
+
 	public String getLineAPIPath() {
 		return lineAPIPath;
 	}
