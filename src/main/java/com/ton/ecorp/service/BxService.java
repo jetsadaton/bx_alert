@@ -21,7 +21,6 @@ public class BxService {
     private BxDaoRest bxdao;
     @Autowired
     private BxApiConfiguration bxconfig;
-
     public BxCion[] GetDataMsg() throws Exception {
         String body = bxdao.GetBodyHtml(bxconfig.getBxApiUrl());
         BxCion[] bxcoins = new BxCion[27];
@@ -42,30 +41,17 @@ public class BxService {
             }
 
         }
-//        //THBBTC
-//        BxCion bxcoin = new BxCion( JsonPath.read(body, "$.1.primary_currency").toString() + JsonPath.read(body, "$.1.secondary_currency").toString() ,
-//                JsonPath.read(body, "$.1.last_price").toString(),
-//                JsonPath.read(body, "$.1.orderbook.bids.highbid").toString(),
-//                JsonPath.read(body, "$.1.orderbook.asks.highbid").toString(),
-//                JsonPath.read(body, "$.1.change").toString());
-//        bxcoins.add(bxcoin);
-//        //THBETH
-//        bxcoin = new BxCion( JsonPath.read(body, "$.21.secondary_currency") ,
-//                JsonPath.read(body, "$.21.last_price").toString(),
-//                JsonPath.read(body, "$.21.orderbook.bids.highbid").toString(),
-//                JsonPath.read(body, "$.21.orderbook.asks.highbid").toString(),
-//                JsonPath.read(body, "$.21.change").toString());
-//        bxcoins.add(bxcoin);
-//        //THBOMG
-//        bxcoin = new BxCion( JsonPath.read(body, "$.26.secondary_currency").toString() ,
-//                JsonPath.read(body, "$.26.last_price").toString(),
-//                JsonPath.read(body, "$.26.orderbook.bids.highbid").toString(),
-//                JsonPath.read(body, "$.26.orderbook.asks.highbid").toString(),
-//                JsonPath.read(body, "$.26.change").toString());
-//        bxcoins.add(bxcoin);
         return bxcoins;
     }
 
+    public  BxCion[] GetListCoin()
+    {
+        BxCion[] bxcoins = new BxCion[3];
+        bxcoins[0] = new BxCion("THB" , "BTC" , "1");
+        bxcoins[1] = new BxCion("THB" , "ETH" , "21");
+        bxcoins[2] = new BxCion("THB" , "OMG" , "26");
+        return bxcoins;
+    }
     public List<Alert> listAll() {
         List<Alert> alerts = ScheduledTask.alerts;;
         return alerts;

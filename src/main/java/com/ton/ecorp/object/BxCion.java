@@ -11,6 +11,7 @@ public class BxCion {
     public double least_buy;
     public double least_sell;
     public float change;
+    public int paring_id;
 
     public  BxCion(String s_coin_pri , String s_coin_sec , String s_least_price , String s_least_buy , String s_least_sell , String s_change)
     {
@@ -21,6 +22,22 @@ public class BxCion {
         this.least_sell = Double.parseDouble(s_least_sell);
         this.change = Float.parseFloat(s_change);
     }
+
+    public  BxCion(String s_coin_pri , String s_coin_sec , String s_paring_id)
+    {
+        this.coin_pri = s_coin_pri;
+        this.coin_sec = s_coin_sec;
+        this.paring_id = Integer.parseInt(s_paring_id);
+
+    }
+    public int getParing_id() {
+        return paring_id;
+    }
+
+    public void setParing_id(int paring_id) {
+        this.paring_id = paring_id;
+    }
+
     public double getLeast_buy() {
         return least_buy;
     }

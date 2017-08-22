@@ -26,6 +26,15 @@
 </nav>
 <div class="container">
     <div class="starter-template">
+        <div th:if="${not #lists.isEmpty(liscion)}">
+            <select class="form-inline form-control" >
+                <div th:each="lis : ${liscion}">
+                    <option  th:value="${lis.coin_sec}">
+                        <p th:text="${lis.coin_sec}"></p>
+                    </option>
+                </div>
+            </select>
+        </div>
         <h1>แจ้งเตือน</h1>
        <div>
            <form class="form-inline" method="POST" th:action="@{/}" th:object="${alert}">
@@ -33,7 +42,7 @@
                    <input type="text" class="form-control" th:field="*{price}" placeholder="Price" required="true" autofocus="true"/>
                </div>
                <select class="form-inline form-control" th:field="*{type}" required="true">
-                   <option value="less">Less than</option>
+                   <option value="less">Less than</option>ไ
                    <option value="more">More than</option>
                    <option value="cross">Cross</option>
                </select>

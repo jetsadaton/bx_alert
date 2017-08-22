@@ -28,6 +28,7 @@ public class AlertTemplateController  {
     @RequestMapping("/")
     public String index(Alert alert , Model model) {
         model.addAttribute("alerts", bxService.listAll());
+        model.addAttribute("liscion", bxService.GetListCoin());
         return "setalert";
     }
 
