@@ -7,6 +7,7 @@ import com.ton.ecorp.config.BxApiConfiguration;
 import com.ton.ecorp.dao.BxDaoRest;
 import com.ton.ecorp.object.Alert;
 import com.ton.ecorp.object.BxCion;
+import com.ton.ecorp.object.Users;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class BxService {
     private BxDaoRest bxdao;
     @Autowired
     private BxApiConfiguration bxconfig;
-    public BxCion[] GetDataMsg() throws Exception {
+    public BxCion[] GetDataCoin() throws Exception {
         String body = bxdao.GetBodyHtml(bxconfig.getBxApiUrl());
         BxCion[] bxcoins = new BxCion[27];
         for(int i =1;i<=26;i++)
@@ -46,21 +47,37 @@ public class BxService {
 
     public  BxCion[] GetListCoin()
     {
-        BxCion[] bxcoins = new BxCion[3];
+        BxCion[] bxcoins = new BxCion[7];
         bxcoins[0] = new BxCion("THB" , "BTC" , "1");
         bxcoins[1] = new BxCion("THB" , "ETH" , "21");
-        bxcoins[2] = new BxCion("THB" , "OMG" , "26");
+        bxcoins[2] = new BxCion("THB" , "DAS" , "22");
+        bxcoins[3] = new BxCion("THB" , "REP" , "23");
+        bxcoins[4] = new BxCion("THB" , "GNO" , "24");
+        bxcoins[5] = new BxCion("THB" , "XRP" , "25");
+        bxcoins[6] = new BxCion("THB" , "OMG" , "26");
         return bxcoins;
     }
     public List<Alert> listAll() {
         List<Alert> alerts = ScheduledTask.alerts;;
-        //Demo Data
-        alerts.add(new Alert(1,100,"less" , 1 , true));
-        alerts.add(new Alert(2,120,"less" , 21 , true));
-        alerts.add(new Alert(3,130,"less" , 26 , true));
-        alerts.add(new Alert(4,140,"less" , 21 , true));
-        alerts.add(new Alert(5,150,"less" , 1 , true));
         return alerts;
+    }
+
+    public List<Users> listUsers() {
+        List<Users> user = ScheduledTask.users;;
+        return user;
+    }
+
+    public void initdata()
+    {
+        List<Users> user = ScheduledTask.users;;
+        user.add(new Users("ton" , "1,21,26"));
+        user.add(new Users("ben" , "1,21,26"));
+//        List<Alert> alerts = ScheduledTask.alerts;;
+//        alerts.add(new Alert(1,100,"more" , 1 , true));
+//        alerts.add(new Alert(2,120,"more" , 21 , true));
+//        alerts.add(new Alert(3,130,"more" , 26 , true));
+//        alerts.add(new Alert(4,140,"more" , 21 , true));
+//        alerts.add(new Alert(5,150,"more" , 1 , true));
     }
 
     public void SetNewAlert(Alert alert)

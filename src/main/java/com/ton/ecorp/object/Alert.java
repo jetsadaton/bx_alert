@@ -8,13 +8,6 @@ public class Alert {
     public int paring_id;
 
     public Alert(){}
-    public Alert(float id ,float price , String type , boolean one_time)
-    {
-        this.id = id;
-        this.price = price;
-        this.type = type;
-        this.one_time_flag = one_time;
-    }
     public Alert(float id ,float price , String type ,int i_paring_id ,  boolean one_time)
     {
         this.id = id;
@@ -22,6 +15,14 @@ public class Alert {
         this.type = type;
         this.one_time_flag = one_time;
         this.paring_id = i_paring_id;
+    }
+
+    public void setParing_id(int paring_id) {
+        this.paring_id = paring_id;
+    }
+
+    public int getParing_id() {
+        return paring_id;
     }
 
     public float getId() {

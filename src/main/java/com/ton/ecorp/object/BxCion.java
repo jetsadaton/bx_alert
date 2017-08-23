@@ -30,6 +30,11 @@ public class BxCion {
         this.paring_id = Integer.parseInt(s_paring_id);
 
     }
+
+    public  String getCoinName()
+    {
+        return   this.coin_pri + "/" + this.coin_sec;
+    }
     public int getParing_id() {
         return paring_id;
     }

@@ -1,6 +1,8 @@
 package com.ton.ecorp.controller;
 
 import com.ton.ecorp.object.Alert;
+import com.ton.ecorp.object.BxCion;
+import com.ton.ecorp.object.Users;
 import com.ton.ecorp.service.ScheduledTask;
 import com.ton.ecorp.service.BxService;
 import com.ton.ecorp.service.MessageService;
@@ -27,18 +29,36 @@ public class AlertTemplateController  {
 
     @RequestMapping("/")
     public String index(Alert alert , Model model) {
-        model.addAttribute("alerts", bxService.listAll());
         model.addAttribute("liscion", bxService.GetListCoin());
+        model.addAttribute("alerts", bxService.listAll());
         return "setalert";
+    }
+
+    @RequestMapping("/ton")
+    public String setmsgton(Alert alert , Model model) {
+        model.addAttribute("liscion", bxService.GetListCoin());
+        model.addAttribute("lisuser", bxService.listUsers().get(0));
+        return "setalertmsg";
     }
 
     @RequestMapping(value = "/" ,
             method = RequestMethod.POST)
     public  String setalert(@ModelAttribute Alert alert , Model model)
     {
-        bxService.SetNewAlert( new Alert(ScheduledTask.alerts.size()+1 , alert.price , alert.type , true));
+        bxService.SetNewAlert( new Alert(ScheduledTask.alerts.size()+1 , alert.price , alert.type , alert.paring_id ,true));
         model.addAttribute("alerts", bxService.listAll());
+        model.addAttribute("liscion", bxService.GetListCoin());
         return "setalert";
+    }
+
+    @RequestMapping(value = "/ton" ,
+            method = RequestMethod.POST)
+    public  String setalertmsgton(@ModelAttribute Users user , Model model)
+    {
+        bxService.listUsers().get(1).setIs_pattern(user.getIs_pattern());
+        model.addAttribute("liscion", bxService.GetListCoin());
+        model.addAttribute("lisuser", bxService.listUsers().get(0));
+        return "ton";
     }
 
 }

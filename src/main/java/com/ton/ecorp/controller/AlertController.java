@@ -24,9 +24,9 @@ public class AlertController {
 
     @RequestMapping(value = "/api" ,
             method = RequestMethod.POST)
-    public  String setalert(@RequestParam(name = "price") String price , @RequestParam(name = "type") String type)
+    public  String setalert(@RequestParam(name = "price") String price , @RequestParam(name = "paring_id") String paring_id,@RequestParam(name = "type") String type)
     {
-        bxService.SetNewAlert( new Alert(ScheduledTask.alerts.size()+1 , Float.parseFloat(price) , type , true));
+        bxService.SetNewAlert( new Alert(ScheduledTask.alerts.size()+1 , Float.parseFloat(price) ,type , Integer.parseInt(paring_id),true));
         return bxService.GetListToString(ScheduledTask.alerts);
     }
 
