@@ -1,14 +1,14 @@
 package com.ton.ecorp.object;
 
-public class Alert {
+public class ObjAlert {
     public float id;
     public float price;
     public String type;
     public boolean one_time_flag;
     public int paring_id;
 
-    public Alert(){}
-    public Alert(float id ,float price , String type ,int i_paring_id ,  boolean one_time)
+    public ObjAlert(){}
+    public ObjAlert(float id , float price , String type , int i_paring_id , boolean one_time)
     {
         this.id = id;
         this.price = price;

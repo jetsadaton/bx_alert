@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    .select_join {
+
+width: 170px;
+ height: 28px;
+ overflow: hidden;
+ background: url('http://s24.postimg.org/lyhytocf5/dropdown.png') no-repeat right #FEFEFE;
+ border: #FEFEFE 1px solid;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+-webkit-box-shadow: inset 0px 0px 10px 1px #FEFEFE;
+box-shadow: inset 0px 0px 10px 1px #FEFEFE;
+ }
+.select_join select {
+
+ background: transparent;
+ width: 170px;
+ font-size:7pt;
+ color:grey;
+ border: 0;
+ border-radius: 0;
+ height: 28px;
+ -webkit-appearance: none;
+
+ }
+ .select_join select:focus {
+  outline: none;
+
+}
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div style="background-color:pink;height:150px; text-align:center;">
+    <br/>
+        <div class="select_join" style="margin-left:15px">
+          <select name="txtCountry" id="txtCountry">
+    					<option>-- Select Country --</option>
+    					<option value="Georgia1">Georgia</option>
+    					<option value="Afghanistan">Afghanistan</option>
+    				</select>
+        </div>
+    </div>
+    <div style="text-align:center;">
+      <h1 id="country">-- Select Country --</h1>
+    </div>
+      <script>
+      $('#txtCountry').on('change',function(){
+        $('#country').text($('#txtCountry').val())
+      })
+
+      </script>
+  </body>
+</html>

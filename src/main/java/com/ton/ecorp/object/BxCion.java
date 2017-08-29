@@ -98,9 +98,18 @@ public class BxCion {
         NumberFormat formatter = NumberFormat.getInstance(new Locale("en_US"));
         msg +=  coin_pri+"/"+coin_sec + " ";
         msg += "Change : " + change + "%\n";
+        if (coin_pri.equals("THB"))
+        {
         msg += "ราคาล่าสุด : " + formatter.format(least_buy) + " "+value+"\n";
         msg += "ราคาชื้อ : " +  formatter.format(least_buy) + " "+value+"\n";
         msg += "ราคาขาย : " +  formatter.format(least_sell) + " "+value+"\n";
+        }
+        else
+        {
+            msg += "ราคาล่าสุด : " +least_buy + " "+value+"\n";
+            msg += "ราคาชื้อ : " +  least_buy + " "+value+"\n";
+            msg += "ราคาขาย : " +  least_sell + " "+value+"\n";
+        }
         return msg;
     }
 }

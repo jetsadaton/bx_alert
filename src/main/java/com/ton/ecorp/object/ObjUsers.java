@@ -1,13 +1,13 @@
 package com.ton.ecorp.object;
 
 
-public class Users {
+public class ObjUsers {
     public String is_user_name;
     public String is_password;
     public String is_pattern;
     public float if_alert_id;
 
-    public Users(String username , String pattern )
+    public ObjUsers(String username , String pattern )
     {
         is_user_name = username;
         is_pattern = pattern;

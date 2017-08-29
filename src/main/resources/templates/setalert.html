@@ -57,10 +57,13 @@
                     <tr>
                         <th>Price</th>
                         <th>Type</th>
+                        <th>สถานะ</th>
                     </tr>
                     <tr th:if="${lis.paring_id} == ${alert.paring_id}"  th:each="alert : ${alerts}">
                         <td th:text="${alert.price}"></td>
                         <td th:text="${alert.type}"></td>
+                        <td th:if="${alert.one_time_flag} == false" ><p th:text = "แจ้งเตือนแล้ว"></p></td>
+                        <td th:if="${alert.one_time_flag} == true" ><p th:text = "ยังไม่แจ้งเตือนแล้ว"></p></td>
                     </tr>
                 </table>
             </div>
